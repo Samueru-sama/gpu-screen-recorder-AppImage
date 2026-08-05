@@ -48,8 +48,7 @@ build_gsr_bin() (
 	cd ./"$repo"
 
 	git fetch --tags origin
-	TAG=$(git tag --sort=-v:refname | grep -vi 'rc\|alpha\|beta' | head -1)
-	git checkout "$TAG"
+	TAG=$(git rev-parse --short=9 HEAD)
 
 	meson setup build --prefix=/usr --libdir=lib --buildtype=release "$@"
 	meson compile -C build
